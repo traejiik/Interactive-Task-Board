@@ -14,7 +14,7 @@
     </header>
 
     <section class="controls-section">
-      <form id="task-form" class="task-form">
+      <!-- <form id="task-form" class="task-form">
         <input type="text" id="task-title" placeholder="Task title..." required />
         <select id="task-category" required>
           <option value="" disabled selected>Select Category</option>
@@ -28,8 +28,7 @@
           <option value="Medium">Medium Priority</option>
           <option value="High">High Priority</option>
         </select>
-        <button type="submit" class="btn btn-primary">Add Task</button>
-      </form>
+      </form> -->
 
       <div class="filter-bar">
         <input type="text" id="search-input" placeholder="Search tasks..." />
@@ -40,6 +39,7 @@
           <option value="Marketing">Marketing</option>
         </select>
       </div>
+      <button class="create-task btn btn-primary">Add Task</button>
     </section>
 
     <!-- Kanban Columns -->
@@ -52,7 +52,7 @@
         <div class="col-content">
           <div class="task-list" id="list-todo"></div>
           <div class="col-footer">
-            <button id="list-td" class="create-task-mute" type="submit">+ Create Task</button>
+            <button id="list-td" class="create-task-mute">+ Create Task</button>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@
         <div class="col-content">
           <div class="task-list" id="list-in-progress"></div>
           <div class="col-footer">
-            <button id="list-ip" class="create-task-mute" type="submit">+ Create Task</button>
+            <button id="list-ip" class="create-task-mute">+ Create Task</button>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
         <div class="col-content">
           <div class="task-list" id="list-completed"></div>
           <div class="col-footer">
-            <button id="list-cp" class="create-task-mute" type="submit">+ Create Task</button>
+            <button id="list-cp" class="create-task-mute">+ Create Task</button>
           </div>
         </div>
       </div>

@@ -97,7 +97,7 @@ function renderTasks() {
 // Helper: Create Task DOM element
 function createTaskForm() {
   const form = document.createElement('div');
-  form.className = 'task-card';
+  form.className = 'task-creator';
 
   form.innerHTML = `
     <form id="task-form" class="task-form">

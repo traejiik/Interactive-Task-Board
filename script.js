@@ -230,6 +230,11 @@ function applyTheme(theme) {
 // Drag and Drop functionality
 function initDragAndDrop() {
   document.querySelectorAll('.column').forEach((column) => {
+    column.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+    });
+
     
   });
 }

@@ -262,6 +262,12 @@ input[type="text"], textarea {
   gap: 10px;;
 }
 
+.task-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 /* Task Cards */
 .task-card {
   background: var(--card-bg);

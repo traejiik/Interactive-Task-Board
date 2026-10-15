@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createTaskCol.forEach(btn => {
     const column = btn.closest('.column');
     const status = column.dataset.status;
-    btn.addEventListener('click', renderTaskForm(status));
+    btn.addEventListener('click', () => renderTaskForm(status));
   })
 });
 
@@ -26,6 +26,28 @@ function saveTasks() {
 }
 
 // Add a new task
+function formListener() {
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === "task-form") {
+    // 1. Prevent the standard browser page reload
+    e.preventDefault();
+
+    // 2. Safely capture the data from the temporary form
+    const formData = new FormData(e.target);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    // 3. Pass it to your function
+    handleAddTask(dataObject);
+  }
+})
+  const taskForm = document.getElementById('task-form');
+  const taskTitle = document.getElementById('task-title');
+  const taskDesc = document.getElementById('task-description')
+  const taskCategory = document.getElementById('task-category');
+  const taskPriority = document.getElementById('task-priority');
+  taskForm.addEventListener('submit', handleAddTask);
+}
+
 function handleAddTask(e) {
   e.preventDefault();
 
@@ -104,13 +126,12 @@ function renderTasks() {
 }
 
 function renderTaskForm(status) {
-  
-  const column = document.querySelector(`div[data-status="${status}"] .task-list`);
+  const column = document.querySelector(`div[data-status="${status}"] .editor`);
   const form = createTaskForm();
   column.appendChild(form);
 }
 
-// Helper: Create Task DOM element
+// Helper: Task DOM elements
 function createTaskForm() {
   const form = document.createElement('div');
   form.classList = ['task-card', 'task-editor']
@@ -149,6 +170,30 @@ function createTaskForm() {
   `;
 
   return form;
+}
+
+function createTaskCard(task) {
+  const card = document.createElement('div');
+  card.className = 'task-card';
+  card.setAttribute('data-priority', task.priority);
+
+  card.innerHTML = `
+    <div class="task-card-title">${escapeHtml(task.title)}</div>
+    <div class="task-meta">
+      <span>${task.category}</span>
+      <span>${task.priority} Priority</span>
+    </div>
+    <div class="task-actions">
+      <select onchange="updateTaskStatus('${task.id}', this.value)">
+        <option value="todo" ${task.status === 'todo' ? 'selected' : ''}>To Do</option>
+        <option value="in-progress" ${task.status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+        <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
+      </select>
+      <button class="btn-danger" onclick="deleteTask('${task.id}')">Delete</button>
+    </div>
+  `;
+
+  return card;
 }
 
 // Security: Helper function to escape basic HTML injection

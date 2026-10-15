@@ -12,7 +12,7 @@ const themeToggle = document.querySelector('.theme-toggle');
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
   formListener();
-  
+
   const savedTheme = localStorage.getItem('theme');
   applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
 
@@ -211,6 +211,7 @@ function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// Theming for dark mode
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
 

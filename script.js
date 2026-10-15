@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchInput.addEventListener('input', renderTasks);
   categoryFilter.addEventListener('change', renderTasks);
+  createTaskNav.addEventListener('click', () => renderTaskForm('todo'))
   createTaskCol.forEach((btn) => {
     const column = btn.closest('.column');
     const status = column.dataset.status;

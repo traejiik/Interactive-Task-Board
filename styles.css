@@ -51,7 +51,7 @@ body {
 }
 
 .task-counter {
-  background-color: rgba(127, 140, 143, 0.5);
+  background-color: #ebedf0;
   border-radius: 8px;
   padding: 5px 10px;
   display: flex;
@@ -179,6 +179,10 @@ input[type="text"] {
 .theme-toggle {
   padding: 7px 8px 5px;
   border-radius: 200px;
+}
+
+.theme-toggle:hover {
+  background-color: #ebedf0;
 }
 
 /* Board Layout */

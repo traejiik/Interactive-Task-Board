@@ -228,4 +228,8 @@ function applyTheme(theme) {
 }
 
 // Drag and Drop functionality
-function initDragAndDrop() {}
+function initDragAndDrop() {
+  document.querySelectorAll('.column').forEach((column) => {
+    
+  });
+}

@@ -7,7 +7,7 @@
   --border-color: #e2e8f0;
   --column-bg: #ebedf0;
   --badge-bg: #dcdfe4;
-  --mute-hover: rgba(127, 140, 143, 0.5);
+  --mute-hover: #c4c8c980;
 
   --border-black: #000000;
 
@@ -32,6 +32,9 @@
   --border-color: #465365;
   --column-bg: #1b222c;
   --badge-bg: #344154;
+  --mute-hover: #2a3441;
+
+  --border-black: #ffffff;
 }
 
 * {
@@ -154,6 +157,7 @@ body {
 input, select, textarea, .btn {
   padding: 10px 14px;
   border: 1px solid var(--border-color);
+  background-color: var(--column-bg);
   border-radius: 6px;
   font-size: 0.95rem;
   outline: none;
@@ -304,8 +308,8 @@ input[type="text"], textarea {
 
 .task-editor {
   margin-bottom: 12px;
-  border-left: 5px solid var(--accent-color);
   border-right: 5px solid var(--accent-color);
+  border-left: 5px solid var(--card-bg);
 }
 
 .task-card[data-priority="Low"] { border-left-color: var(--priority-low); }

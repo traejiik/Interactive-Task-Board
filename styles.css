@@ -50,6 +50,12 @@ body {
   justify-content: right;
 }
 
+.nav-button-container {
+  display: flex;
+  justify-content: baseline;
+  gap: 0.5em;
+}
+
 .app-header {
   background-color: var(--card-bg);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -127,16 +133,21 @@ input[type="text"] {
   mask-size: 100% 100%;
 }
 
-
-.theme-toggle {
-  padding: 0px;
-}
-
 .btn-mute {
   background-color: rgba(0, 0, 0, 0.00);
+  transition: background-color 0.2s ease;
   color: var(--text-muted);
   border: 0;
-  
+}
+
+.btn-mute:hover {
+  background-color: rgba(127, 140, 143, 0.5);
+  color: var(--text-main);
+}
+
+.theme-toggle {
+  padding: 7px 8px 5px;
+  border-radius: 200px;
 }
 
 /* Board Layout */

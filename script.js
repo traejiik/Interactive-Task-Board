@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const status = column.dataset.status;
     btn.addEventListener('click', () => renderTaskForm(status));
   });
+  formListener();
 });
 
 // Save tasks to localStorage
@@ -34,9 +35,10 @@ function formListener() {
 
       const formData = new FormData(e.target);
       const dataObject = Object.fromEntries(formData.entries());
-      const status = e.dataset.status
+      const status = e.target.dataset.status;
 
       handleAddTask(dataObject, status);
+      e.target.reset();
     }
   });
 }

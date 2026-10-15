@@ -38,7 +38,7 @@ function formListener() {
       const status = e.target.dataset.status;
 
       handleAddTask(dataObject, status);
-      e.target.reset();
+      e.target.closest('.task-editor').remove();
     }
   });
 }
@@ -56,9 +56,6 @@ function handleAddTask(data, status) {
   tasks.push(newTask);
   saveTasks();
   renderTasks();
-
-  // Reset form fields
-  taskForm.reset();
 }
 
 // Update status of a task
@@ -160,7 +157,7 @@ function createTaskForm(status) {
       </div>
       <div class="task-form-actions">
         <button type="submit" class="btn btn-primary">Save</button>
-        <button class="btn btn-mute btn-danger" onclick="cancelTaskForm()">Cancel</button>
+        <button class="btn btn-mute btn-danger" onclick="this.closest('.task-editor').remove()">Cancel</button>
       </div>
     </form>
   `;

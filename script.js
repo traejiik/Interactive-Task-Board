@@ -119,12 +119,13 @@ function renderTasks() {
 }
 
 function renderTaskForm(status) {
-  const column = document.querySelector(`div[data-status="${status}"] .editor`);
-  const form = createTaskForm(status);
-  if (document.querySelectorAll('.task-editor').length == 1) {
-    document.querySelector('.task-editor #task-title').focus();
+  const existingEditor = document.querySelector('.task-editor');
+  if (existingEditor) {
+    existingEditor.querySelector('[name="title"]').focus();
     return;
   }
+  const column = document.querySelector(`div[data-status="${status}"] .editor`);
+  const form = createTaskForm(status);
   column.appendChild(form);
 }
 
@@ -136,7 +137,7 @@ function createTaskForm(status) {
   form.innerHTML = `
     <form id="task-form" class="task-form" data-status="${status}">
       <div class="task-form-title">
-        <input name="title" type="text" id="task-title" placeholder="Task title..." required minlength="2" pattern="[A-Za-z0-9].*" title="Please enter a title that does not start with whitespace" autofocus />
+        <input name="title" type="text" id="task-title" placeholder="Task title..." required minlength="2" pattern=".*\\S.*" title="Enter a title containing at least one non-whitespace character" autofocus />
       </div>
       <div class="task-form-desc">
         <textarea name="description" id="task-description" placeholder="Task description..."></textarea>

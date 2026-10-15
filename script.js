@@ -11,6 +11,7 @@ const themeToggle = document.querySelector('.theme-toggle');
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
+  initDragAndDrop();
   formListener();
 
   const savedTheme = localStorage.getItem('theme');
@@ -218,3 +219,6 @@ function applyTheme(theme) {
   themeToggle.setAttribute('aria-label', 'Dark mode');
   themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
 }
+
+// Drag and Drop functionality
+function initDragAndDrop() {}

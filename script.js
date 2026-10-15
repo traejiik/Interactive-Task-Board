@@ -235,6 +235,16 @@ function initDragAndDrop() {
       e.dataTransfer.dropEffect = 'move';
     });
 
-    
+    column.addEventListener('drop', (e) => {
+      e.preventDefault();
+
+      const id = e.dataTransfer.getData('text/plain');
+      const task = tasks.find((task) => task.id === id);
+      const newStatus = e.currentTarget.dataset.status;
+
+      if (!task || task.status === newStatus) return;
+
+      updateTaskStatus(id, newStatus);
+    });
   });
 }

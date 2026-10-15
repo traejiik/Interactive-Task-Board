@@ -5,11 +5,26 @@
   --text-muted: #7f8c8d;
   --accent-color: #3498db;
   --border-color: #e2e8f0;
+  --column-bg: #ebedf0;
+  --badge-bg: #dcdfe4;
 
   /* Priority Palette */
   --priority-low: #2ecc71;
   --priority-medium: #f39c12;
   --priority-high: #e74c3c;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-primary: #151a21;
+  --card-bg: #222a35;
+  --text-main: #edf2f7;
+  --text-muted: #b0bdcc;
+  --accent-color: #3498db;
+  --border-color: #465365;
+  --column-bg: #1b222c;
+  --badge-bg: #344154;
 }
 
 * {

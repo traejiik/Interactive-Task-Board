@@ -121,6 +121,10 @@ function renderTasks() {
 function renderTaskForm(status) {
   const column = document.querySelector(`div[data-status="${status}"] .editor`);
   const form = createTaskForm(status);
+  if (document.querySelectorAll('.task-editor').length == 1) {
+    document.querySelector('.task-editor #task-title').focus();
+    return;
+  }
   column.appendChild(form);
 }
 
@@ -157,7 +161,7 @@ function createTaskForm(status) {
       </div>
       <div class="task-form-actions">
         <button type="submit" class="btn btn-primary">Save</button>
-        <button class="btn btn-mute btn-danger" onclick="this.closest('.task-editor').remove()">Cancel</button>
+        <button type="button" class="btn btn-mute btn-danger" onclick="this.closest('.task-editor').remove()">Cancel</button>
       </div>
     </form>
   `;
@@ -172,7 +176,7 @@ function createTaskCard(task) {
 
   card.innerHTML = `
     <div class="task-card-title">${escapeHtml(task.title)}</div>
-    <div class="task-description">${escapeHtml(task.description)}</div>
+    <div class="task-description">${escapeHtml(task.description ?? '')}</div>
     <div class="task-meta">
       <span>${task.category}</span>
       <span>${task.priority} Priority</span>

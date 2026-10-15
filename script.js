@@ -136,7 +136,7 @@ function createTaskForm(status) {
   form.innerHTML = `
     <form id="task-form" class="task-form" data-status="${status}">
       <div class="task-form-title">
-        <input name="title" type="text" id="task-title" placeholder="Task title..." required />
+        <input name="title" type="text" id="task-title" placeholder="Task title..." required minlength="2" pattern="\S.*" title="Please enter a title that does not start with whitespace" autofocus />
       </div>
       <div class="task-form-desc">
         <textarea name="description" id="task-description" placeholder="Task description..."></textarea>

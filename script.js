@@ -2,10 +2,6 @@
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 // DOM Element References
-const taskForm = document.getElementById('task-form');
-const taskTitle = document.getElementById('task-title');
-const taskCategory = document.getElementById('task-category');
-const taskPriority = document.getElementById('task-priority');
 const searchInput = document.getElementById('search-input');
 const categoryFilter = document.getElementById('category-filter');
 
@@ -13,7 +9,6 @@ const categoryFilter = document.getElementById('category-filter');
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
   
-  taskForm.addEventListener('submit', handleAddTask);
   searchInput.addEventListener('input', renderTasks);
   categoryFilter.addEventListener('change', renderTasks);
 });
@@ -30,6 +25,7 @@ function handleAddTask(e) {
   const newTask = {
     id: Date.now().toString(),
     title: taskTitle.value.trim(),
+    description: taskDesc.value.trim(),
     category: taskCategory.value,
     priority: taskPriority.value,
     status: 'todo'
@@ -99,28 +95,44 @@ function renderTasks() {
 }
 
 // Helper: Create Task DOM element
-function createTaskCard(task) {
-  const card = document.createElement('div');
-  card.className = 'task-card';
-  card.setAttribute('data-priority', task.priority);
+function createTaskForm() {
+  const form = document.createElement('div');
+  form.className = 'task-card';
 
-  card.innerHTML = `
-    <div class="task-card-title">${escapeHtml(task.title)}</div>
-    <div class="task-meta">
-      <span>${task.category}</span>
-      <span>${task.priority} Priority</span>
-    </div>
-    <div class="task-actions">
-      <select onchange="updateTaskStatus('${task.id}', this.value)">
-        <option value="todo" ${task.status === 'todo' ? 'selected' : ''}>To Do</option>
-        <option value="in-progress" ${task.status === 'in-progress' ? 'selected' : ''}>In Progress</option>
-        <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
-      </select>
-      <button class="btn-danger" onclick="deleteTask('${task.id}')">Delete</button>
-    </div>
+  form.innerHTML = `
+    <form id="task-form" class="task-form">
+      <div class="task-form-title">
+        <input type="text" id="task-title" placeholder="Task title..." required />
+      </div>
+      <div class="task-form-desc">
+        <textarea  id="task-description" placeholder="Task description..." />
+      </div>
+      <div class="task-form-meta">
+        <div class="task-form-category">
+          <select id="task-category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Development">Development</option>
+            <option value="Design">Design</option>
+            <option value="Marketing">Marketing</option>
+          </select>
+        </div>
+        <div class="task-form-priority">
+          <select id="task-priority" required>
+            <option value="" disabled selected>Select Priority</option>
+            <option value="Low">Low Priority</option>
+            <option value="Medium">Medium Priority</option>
+            <option value="High">High Priority</option>
+          </select>
+        </div>
+      </div>
+      <div class="task-form-actions">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-mute btn-danger" onclick="cancelTaskForm()">Cancel</button>
+      </div>
+    </form>
   `;
 
-  return card;
+  return form;
 }
 
 // Security: Helper function to escape basic HTML injection

@@ -10,14 +10,14 @@ const createTaskCol = document.querySelectorAll('.col-footer button');
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
-  
+
   searchInput.addEventListener('input', renderTasks);
   categoryFilter.addEventListener('change', renderTasks);
-  createTaskCol.forEach(btn => {
+  createTaskCol.forEach((btn) => {
     const column = btn.closest('.column');
     const status = column.dataset.status;
     btn.addEventListener('click', () => renderTaskForm(status));
-  })
+  });
 });
 
 // Save tasks to localStorage
@@ -28,36 +28,26 @@ function saveTasks() {
 // Add a new task
 function formListener() {
   document.addEventListener('submit', function (e) {
-    if (e.target && e.target.id === "task-form") {
-    // 1. Prevent the standard browser page reload
-    e.preventDefault();
+    if (e.target && e.target.id === 'task-form') {
+      e.preventDefault();
 
-    // 2. Safely capture the data from the temporary form
-    const formData = new FormData(e.target);
-    const dataObject = Object.fromEntries(formData.entries());
+      const formData = new FormData(e.target);
+      const dataObject = Object.fromEntries(formData.entries());
+      const status = e.dataset.status
 
-    // 3. Pass it to your function
-    handleAddTask(dataObject);
-  }
-})
-  const taskForm = document.getElementById('task-form');
-  const taskTitle = document.getElementById('task-title');
-  const taskDesc = document.getElementById('task-description')
-  const taskCategory = document.getElementById('task-category');
-  const taskPriority = document.getElementById('task-priority');
-  taskForm.addEventListener('submit', handleAddTask);
+      handleAddTask(dataObject, status);
+    }
+  });
 }
 
-function handleAddTask(e) {
-  e.preventDefault();
-
+function handleAddTask(data, status) {
   const newTask = {
     id: Date.now().toString(),
-    title: taskTitle.value.trim(),
-    description: taskDesc.value.trim(),
-    category: taskCategory.value,
-    priority: taskPriority.value,
-    status: 'todo'
+    title: data.title.trim(),
+    description: data.description.trim(),
+    category: data.category,
+    priority: data.priority,
+    status: status,
   };
 
   tasks.push(newTask);
@@ -70,8 +60,8 @@ function handleAddTask(e) {
 
 // Update status of a task
 function updateTaskStatus(id, newStatus) {
-  tasks = tasks.map(task => 
-    task.id === id ? { ...task, status: newStatus } : task
+  tasks = tasks.map((task) =>
+    task.id === id ? { ...task, status: newStatus } : task,
   );
   saveTasks();
   renderTasks();
@@ -79,7 +69,7 @@ function updateTaskStatus(id, newStatus) {
 
 // Delete a task
 function deleteTask(id) {
-  tasks = tasks.filter(task => task.id !== id);
+  tasks = tasks.filter((task) => task.id !== id);
   saveTasks();
   renderTasks();
 }
@@ -91,25 +81,26 @@ function renderTasks() {
 
   // Clear lists
   const lists = {
-    'todo': document.getElementById('list-todo'),
+    todo: document.getElementById('list-todo'),
     'in-progress': document.getElementById('list-in-progress'),
-    'completed': document.getElementById('list-completed')
+    completed: document.getElementById('list-completed'),
   };
 
-  Object.values(lists).forEach(list => list.innerHTML = '');
+  Object.values(lists).forEach((list) => (list.innerHTML = ''));
 
   // Track counts
-  const counts = { 'todo': 0, 'in-progress': 0, 'completed': 0 };
+  const counts = { todo: 0, 'in-progress': 0, completed: 0 };
 
   // Filter tasks
-  const filteredTasks = tasks.filter(task => {
+  const filteredTasks = tasks.filter((task) => {
     const matchesSearch = task.title.toLowerCase().includes(searchTerm);
-    const matchesCategory = selectedCategory === 'All' || task.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === 'All' || task.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
   // Append elements
-  filteredTasks.forEach(task => {
+  filteredTasks.forEach((task) => {
     counts[task.status]++;
     const cardHtml = createTaskCard(task);
     if (lists[task.status]) {
@@ -119,34 +110,36 @@ function renderTasks() {
 
   // Update counts in DOM
   document.getElementById('count-todo').textContent = counts['todo'];
-  document.getElementById('count-in-progress').textContent = counts['in-progress'];
+  document.getElementById('count-in-progress').textContent =
+    counts['in-progress'];
   document.getElementById('count-completed').textContent = counts['completed'];
-  document.querySelector('.active-content').textContent = (counts['todo'] + counts['in-progress']);
+  document.querySelector('.active-content').textContent =
+    counts['todo'] + counts['in-progress'];
   document.querySelector('.complete-content').textContent = counts['completed'];
 }
 
 function renderTaskForm(status) {
   const column = document.querySelector(`div[data-status="${status}"] .editor`);
-  const form = createTaskForm();
+  const form = createTaskForm(status);
   column.appendChild(form);
 }
 
 // Helper: Task DOM elements
-function createTaskForm() {
+function createTaskForm(status) {
   const form = document.createElement('div');
-  form.classList = ['task-card', 'task-editor']
+  form.classList.add('task-card', 'task-editor');
 
   form.innerHTML = `
-    <form id="task-form" class="task-form">
+    <form id="task-form" class="task-form" data-status="${status}">
       <div class="task-form-title">
-        <input type="text" id="task-title" placeholder="Task title..." required />
+        <input name="title" type="text" id="task-title" placeholder="Task title..." required />
       </div>
       <div class="task-form-desc">
-        <textarea  id="task-description" placeholder="Task description..."></textarea>
+        <textarea name="description" id="task-description" placeholder="Task description..."></textarea>
       </div>
       <div class="task-form-meta">
         <div class="task-form-category">
-          <select id="task-category" required>
+          <select name="category" id="task-category" required>
             <option value="" disabled selected>Select Category</option>
             <option value="Development">Development</option>
             <option value="Design">Design</option>
@@ -154,7 +147,7 @@ function createTaskForm() {
           </select>
         </div>
         <div class="task-form-priority">
-          <select id="task-priority" required>
+          <select name="priority" id="task-priority" required>
             <option value="" disabled selected>Select Priority</option>
             <option value="Low">Low Priority</option>
             <option value="Medium">Medium Priority</option>
@@ -179,6 +172,7 @@ function createTaskCard(task) {
 
   card.innerHTML = `
     <div class="task-card-title">${escapeHtml(task.title)}</div>
+    <div class="task-description">${escapeHtml(task.description)}</div>
     <div class="task-meta">
       <span>${task.category}</span>
       <span>${task.priority} Priority</span>
@@ -198,5 +192,5 @@ function createTaskCard(task) {
 
 // Security: Helper function to escape basic HTML injection
 function escapeHtml(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

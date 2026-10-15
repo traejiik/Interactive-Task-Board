@@ -4,6 +4,8 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 // DOM Element References
 const searchInput = document.getElementById('search-input');
 const categoryFilter = document.getElementById('category-filter');
+const createTaskNav = document.getElementById('nav-create-task');
+const createTaskCol = document.querySelectorAll('.col-footer button');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {

@@ -6,20 +6,31 @@ const searchInput = document.getElementById('search-input');
 const categoryFilter = document.getElementById('category-filter');
 const createTaskNav = document.getElementById('nav-create-task');
 const createTaskCol = document.querySelectorAll('.col-footer button');
+const themeToggle = document.querySelector('.theme-toggle');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
   renderTasks();
+  formListener();
+  
+  const savedTheme = localStorage.getItem('theme');
+  applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
 
   searchInput.addEventListener('input', renderTasks);
   categoryFilter.addEventListener('change', renderTasks);
-  createTaskNav.addEventListener('click', () => renderTaskForm('todo'))
+  createTaskNav.addEventListener('click', () => renderTaskForm('todo'));
   createTaskCol.forEach((btn) => {
     const column = btn.closest('.column');
     const status = column.dataset.status;
     btn.addEventListener('click', () => renderTaskForm(status));
   });
-  formListener();
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.dataset.theme;
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    applyTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  });
 });
 
 // Save tasks to localStorage
@@ -198,4 +209,11 @@ function createTaskCard(task) {
 // Security: Helper function to escape basic HTML injection
 function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+
+  themeToggle.setAttribute('aria-label', 'Dark mode');
+  themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
 }

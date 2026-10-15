@@ -41,13 +41,18 @@ body {
 .nav-toolbar{
   background-color: var(--card-bg);
   position: fixed;
-  display: flex;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   width: 100%;
   left: 0;
   top: 0;
-  padding: 1em 4em;
+  padding: 1em 20px;
+}
+
+.toolbar-content {
+  display: flex;
   justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .task-counter {
@@ -118,13 +123,13 @@ body {
   gap: 15px;
 }
 
-.task-form, .filter-bar {
+.filter-bar {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
 }
 
-input, select, .btn {
+input, select, textarea, .btn {
   padding: 10px 14px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -132,7 +137,7 @@ input, select, .btn {
   outline: none;
 }
 
-input[type="text"] {
+input[type="text"], textarea {
   flex: 1;
   min-width: 200px;
 }
@@ -239,6 +244,23 @@ input[type="text"] {
   margin-top: 6px;
 }
 
+/* Task Form */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#task-title, #task-description {
+  width: 100%;
+  max-width: 100%;
+}
+
+.task-form-meta {
+  display: flex;
+  gap: 10px;;
+}
+
 /* Task Cards */
 .task-card {
   background: var(--card-bg);
@@ -285,8 +307,11 @@ input[type="text"] {
   border: none;
   cursor: pointer;
   font-size: 0.85rem;
+  transition: background-color 0.2s ease;
 }
 
 .btn-danger:hover {
-  text-decoration: underline;
+  background-color: var(--priority-high);
+  text-decoration: none;
+  color: white;
 }

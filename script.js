@@ -183,7 +183,7 @@ function createTaskCard(task) {
         <option value="in-progress" ${task.status === 'in-progress' ? 'selected' : ''}>In Progress</option>
         <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
       </select>
-      <button class="btn-danger" onclick="deleteTask('${task.id}')">Delete</button>
+      <button class="btn btn-danger" onclick="deleteTask('${task.id}')">Delete</button>
     </div>
   `;
 

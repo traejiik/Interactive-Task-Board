@@ -204,6 +204,13 @@ function createTaskCard(task) {
     </div>
   `;
 
+  card.draggable = true;
+
+  card.addEventListener('dragstart', (e) => {
+    e.dataTransfer.setData('text/plain', task.id);
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
   return card;
 }
 

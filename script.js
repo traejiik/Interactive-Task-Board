@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   searchInput.addEventListener('input', renderTasks);
   categoryFilter.addEventListener('change', renderTasks);
+  createTaskCol.forEach(btn => {
+    const column = btn.closest('.column');
+    const status = column.dataset.status;
+    btn.addEventListener('click', renderTaskForm(status));
+  })
 });
 
 // Save tasks to localStorage
@@ -94,14 +99,21 @@ function renderTasks() {
   document.getElementById('count-todo').textContent = counts['todo'];
   document.getElementById('count-in-progress').textContent = counts['in-progress'];
   document.getElementById('count-completed').textContent = counts['completed'];
-  document.querySelector('active-content').textContent = counts['todo'] + counts['in-progress'];
-  document.querySelector('complete-content').textContent = counts['completed'];
+  document.querySelector('.active-content').textContent = (counts['todo'] + counts['in-progress']);
+  document.querySelector('.complete-content').textContent = counts['completed'];
+}
+
+function renderTaskForm(status) {
+  
+  const column = document.querySelector(`div[data-status="${status}"] .task-list`);
+  const form = createTaskForm();
+  column.appendChild(form);
 }
 
 // Helper: Create Task DOM element
 function createTaskForm() {
   const form = document.createElement('div');
-  form.className = 'task-creator';
+  form.classList = ['task-card', 'task-editor']
 
   form.innerHTML = `
     <form id="task-form" class="task-form">
@@ -109,7 +121,7 @@ function createTaskForm() {
         <input type="text" id="task-title" placeholder="Task title..." required />
       </div>
       <div class="task-form-desc">
-        <textarea  id="task-description" placeholder="Task description..." />
+        <textarea  id="task-description" placeholder="Task description..."></textarea>
       </div>
       <div class="task-form-meta">
         <div class="task-form-category">

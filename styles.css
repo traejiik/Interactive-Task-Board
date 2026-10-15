@@ -7,6 +7,13 @@
   --border-color: #e2e8f0;
   --column-bg: #ebedf0;
   --badge-bg: #dcdfe4;
+  --mute-hover: rgba(127, 140, 143, 0.5);
+
+  --border-black: #000000;
+
+  /* Box Shadow */
+  --header-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  --control-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   /* Priority Palette */
   --priority-low: #2ecc71;
@@ -56,7 +63,7 @@ body {
 .nav-toolbar{
   background-color: var(--card-bg);
   position: fixed;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--header-box-shadow);
   width: 100%;
   left: 0;
   top: 0;
@@ -71,7 +78,7 @@ body {
 }
 
 .task-counter {
-  background-color: #ebedf0;
+  background-color: var(--column-bg);
   border-radius: 8px;
   padding: 5px 10px;
   display: flex;
@@ -84,7 +91,7 @@ body {
 }
 
 .active-counter {
-  border-right: 0.5px solid black;
+  border-right: 0.5px solid var(--border-black);
 }
 
 .active-content {
@@ -93,7 +100,7 @@ body {
 }
 
 .complete-counter {
-  border-left: 0.5px solid black;
+  border-left: 0.5px solid var(--border-black);
 }
 
 .complete-content {
@@ -109,7 +116,7 @@ body {
 
 .app-header {
   background-color: var(--card-bg);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--box-shadow);
   border-radius: 8px;
   margin-top: 80px;
   padding: 30px 40px 40px;
@@ -131,7 +138,7 @@ body {
   background: var(--card-bg);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--control-box-shadow);
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
@@ -159,7 +166,7 @@ input[type="text"], textarea {
 
 .btn-primary {
   background-color: var(--accent-color);
-  color: #fff;
+  color: white;
   border: none;
   cursor: pointer;
   font-weight: 600;
@@ -185,14 +192,14 @@ input[type="text"], textarea {
 }
 
 .btn-mute {
-  background-color: rgba(0, 0, 0, 0.00);
+  background-color: transparent;
   transition: background-color 0.2s ease;
   color: var(--text-muted);
   border: 0;
 }
 
 .btn-mute:hover {
-  background-color: rgba(127, 140, 143, 0.5);
+  background-color: var(--mute-hover);
   color: var(--text-main);
 }
 
@@ -202,7 +209,7 @@ input[type="text"], textarea {
 }
 
 .theme-toggle:hover {
-  background-color: #ebedf0;
+  background-color: var(--column-bg);
 }
 
 /* Board Layout */
@@ -213,7 +220,7 @@ input[type="text"], textarea {
 }
 
 .column {
-  background-color: #ebedf0;
+  background-color: var(--column-bg);
   border-radius: 8px;
   padding: 15px;
   min-height: 450px;
@@ -227,7 +234,7 @@ input[type="text"], textarea {
   align-items: centre;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #dcdfe4;
+  border-bottom: 2px solid var(--badge-bg);
 }
 
 .column-header h2 {
@@ -235,7 +242,7 @@ input[type="text"], textarea {
 }
 
 .task-count {
-  background: #dcdfe4;
+  background: var(--badge-bg);
   padding: 5px 12px;
   border-radius: 200px;
   font-size: 0.85rem;
@@ -288,7 +295,7 @@ input[type="text"], textarea {
   background: var(--card-bg);
   border-radius: 6px;
   padding: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--control-box-shadow);
   border-left: 5px solid var(--border-color);
   display: flex;
   flex-direction: column;

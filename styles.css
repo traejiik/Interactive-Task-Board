@@ -222,11 +222,21 @@ input[type="text"] {
   font-weight: bold;
 }
 
+.col-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .task-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex-grow: 1;
+  margin-bottom: 6px;
+}
+
+.col-footer {
+  margin-top: 6px;
 }
 
 /* Task Cards */
@@ -239,6 +249,11 @@ input[type="text"] {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.task-editor {
+  margin: 6px 0;
+  border-left: 5px solid var(--accent-color);
 }
 
 .task-card[data-priority="Low"] { border-left-color: var(--priority-low); }

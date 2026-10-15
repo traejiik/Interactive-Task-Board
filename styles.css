@@ -258,6 +258,7 @@ input[type="text"], textarea {
 
 .task-form-meta {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;;
 }
 

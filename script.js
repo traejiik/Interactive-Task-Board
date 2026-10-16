@@ -102,8 +102,8 @@ function renderTasks() {
 
   // Track counts
   const totals = {
-    active: lists.todo.children.length + lists["in-progress"].children.length,
-    complete: lists.completed.children.length
+    active: tasks.filter(task => task.status === 'todo' || task.status === 'in-progress').length,
+    complete: tasks.filter(task => task.status === 'completed').length,
   };
   const counts = { todo: 0, 'in-progress': 0, completed: 0 };
 

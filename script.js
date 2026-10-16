@@ -101,6 +101,10 @@ function renderTasks() {
   Object.values(lists).forEach((list) => (list.innerHTML = ''));
 
   // Track counts
+  const totals = {
+    active: lists.todo.children.length + lists["in-progress"].children.length,
+    complete: lists.completed.children.length
+  };
   const counts = { todo: 0, 'in-progress': 0, completed: 0 };
 
   // Filter tasks
@@ -126,8 +130,8 @@ function renderTasks() {
     counts['in-progress'];
   document.getElementById('count-completed').textContent = counts['completed'];
   document.querySelector('.active-content').textContent =
-    counts['todo'] + counts['in-progress'];
-  document.querySelector('.complete-content').textContent = counts['completed'];
+    totals.active;
+  document.querySelector('.complete-content').textContent = totals.complete;
 }
 
 function renderTaskForm(status) {

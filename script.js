@@ -130,8 +130,8 @@ function renderTasks() {
     counts['in-progress'];
   document.getElementById('count-completed').textContent = counts['completed'];
   document.querySelector('.active-content').textContent =
-    totals.active;
-  document.querySelector('.complete-content').textContent = totals.complete;
+    totals['active'];
+  document.querySelector('.complete-content').textContent = totals['complete'];
 }
 
 function renderTaskForm(status) {
